@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit bootstrap="vendor/logics/phpunit-extensions/PHPUnitBootstrap.php" colors="true">
+  <testsuites>
+    <testsuite name="Conveyor">
+      <directory>./tests</directory>
+    </testsuite>
+    <testsuite name="PHPT">
+      <directory suffix=".phpt">./tests</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <var name="PROJECT_NAME" value="Conveyor"/>
+    <var name="DB_HOST" value="localhost" />
+    <var name="DB_USER" value="root"/>
+    <var name="DB_PASSWD" value="J-65tv14cn"/>
+    <var name="DB_DBNAME" value="test"/>
+    <const name="LOGGER_DISABLE" value="true"/>
+  </php>
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">./src</directory>
+    </whitelist>
+  </filter>
+  <logging>
+    <log type="coverage-html" title="Conveyor" target="build/coverage" charset="UTF-8" yui="true" highlight="false" lowUpperBound="35" highLowerBound="70"/>
+    <log type="coverage-clover" target="build/logs/clover.xml"/>
+    <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+    <log type="testdox-html" target="build/testdox/index.html"/>
+  </logging>
+</phpunit>
