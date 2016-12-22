@@ -54,7 +54,7 @@ class ConveyorTest extends PHPUnit_Framework_TestCase
 
 
 	/**
-	 * Should allow to add, get and elements
+	 * Should allow to add, get and remove elements
 	 *
 	 * @return void
 	 */
