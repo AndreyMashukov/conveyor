@@ -37,6 +37,7 @@ class ConveyorTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	    {
+		define("CONVEYOR_DIR", __DIR__ . "/testdir");
 	    } //end setUp()
 
 

@@ -10,6 +10,8 @@ namespace Irkagentanet;
 
 use \DirectoryIterator;
 use \DOMDocument;
+use \LoadBalance\Throttler;
+use \LoadBalance\Sensors\CPUSensor;
 
 /**
  * Data conveyor (queue)
@@ -38,6 +40,13 @@ class Conveyor
 	private $_schema;
 
 	/**
+	 * Throttler
+	 *
+	 * @var Throttler
+	 */
+	private $_throttler;
+
+	/**
 	 * Construct class
 	 *
 	 * @param string $schema XML Schema
@@ -47,11 +56,18 @@ class Conveyor
 
 	public function __construct($schema = false)
 	    {
+		$this->_throttler = new Throttler(new CPUSensor());
 		$datadir = "/home/conveyor";
+		if (defined("CONVEYOR_DIR") === true)
+		    {
+			$datadir = CONVEYOR_DIR;
+		    } //end if
+
 		if (file_exists($datadir) === false)
 		    {
 			mkdir($datadir);
-		    }
+		    } //end if
+
 		$this->_datadir = $datadir;
 
 		$this->_schema = $schema;
@@ -146,6 +162,7 @@ class Conveyor
 
 	public function getAllBySender($sender, $limit = false)
 	    {
+		$this->_throttler->run();
 		$all = array();
 		if ($limit === false)
 		    {
